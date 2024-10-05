@@ -126,7 +126,7 @@ public class FrmUsuario extends javax.swing.JFrame {
 
         jLabel4.setText("Usuario");
 
-        jLabel5.setText("Password");
+        jLabel5.setText("Contraseña");
 
         jLabel6.setText("Apellido Paterno");
 
@@ -429,7 +429,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                 cboPerfil.setSelectedItem(ousuario.getPerfil());
                 cboestado.setSelectedItem(ousuario.getEstado());
                 txtUsuario.setText(ousuario.getUsuario());
-                txtContraseña.setVisible(false);
+                txtContraseña.setText(null);
                 txtAPaterno.setText(ousuario.getApellidoPaterno());
                 txtAMaterno.setText(ousuario.getApellidoMaterno());
                 txtNombre.setText(ousuario.getNombres());
