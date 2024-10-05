@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.security.MessageDigest;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
@@ -33,7 +34,7 @@ public class FrmUsuario extends javax.swing.JFrame {
 
     void listar() {
         DefaultTableModel p_tabla = new DefaultTableModel();
-        String[] titulos = {"Código","Perfil", "Estado", "Usuario", "Apellido Paterno", "Apellido Materno", "Nombres"};
+        String[] titulos = {"Código", "Perfil", "Estado", "Usuario", "Apellido Paterno", "Apellido Materno", "Nombres"};
         p_tabla.setColumnIdentifiers(titulos);
 
         List<Usuario> lista = oUsuarioBL.listarUsuario();
@@ -44,7 +45,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                 ousuario.getIdUsuario(),
                 ousuario.getPerfil(),
                 ousuario.getEstado(),
-                ousuario.getUsuario(),                
+                ousuario.getUsuario(),
                 ousuario.getApellidoPaterno(),
                 ousuario.getApellidoMaterno(),
                 ousuario.getNombres()};
@@ -72,6 +73,7 @@ public class FrmUsuario extends javax.swing.JFrame {
     void mensaje(String men) {
         JOptionPane.showMessageDialog(this, men, "Aviso", 1);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,7 +126,7 @@ public class FrmUsuario extends javax.swing.JFrame {
 
         jLabel4.setText("Usuario");
 
-        jLabel5.setText("Contraseña");
+        jLabel5.setText("Password");
 
         jLabel6.setText("Apellido Paterno");
 
@@ -358,13 +360,16 @@ public class FrmUsuario extends javax.swing.JFrame {
                     System.out.println("Usuario agregado, resultado; " + u);
                 }
             } else {
-
+                String nuevacontraseña = null;
+                if (!txtContraseña.getText().isEmpty()) {
+                    nuevacontraseña = txtContraseña.getText();
+                }
                 u = oUsuarioBL.actualizarUsuario(new Usuario(
                         Integer.parseInt(txtId.getText()),
                         cboPerfil.getSelectedItem().toString(),
                         cboestado.getSelectedItem().toString(),
                         txtUsuario.getText(),
-                        txtContraseña.getText(),
+                        nuevacontraseña,
                         txtAPaterno.getText(),
                         txtAMaterno.getText(),
                         txtNombre.getText(),
@@ -419,7 +424,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                 cboPerfil.setSelectedItem(ousuario.getPerfil());
                 cboestado.setSelectedItem(ousuario.getEstado());
                 txtUsuario.setText(ousuario.getUsuario());
-                txtContraseña.setText(ousuario.getPassword());
+                txtContraseña.setVisible(false);
                 txtAPaterno.setText(ousuario.getApellidoPaterno());
                 txtAMaterno.setText(ousuario.getApellidoMaterno());
                 txtNombre.setText(ousuario.getNombres());

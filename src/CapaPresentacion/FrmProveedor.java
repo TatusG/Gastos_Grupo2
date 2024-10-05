@@ -522,7 +522,7 @@ public class FrmProveedor extends javax.swing.JFrame {
                 txtDir.setText(oproveedor.getDireccion());
                 cboDepartamento.setSelectedItem(oproveedor.getDepartamento());
                 cboProvincia.setSelectedItem(oproveedor.getProvincia());
-                cboDistrito.setSelectedItem(oproveedor.getDistrito());
+                cboDistrito.setSelectedItem(oproveedor.getDistrito());                
                 txtTelef.setText(oproveedor.getTelefono());
                 txtCel.setText(oproveedor.getCelular());
                 txtEmail.setText(oproveedor.getEmail());

@@ -47,7 +47,7 @@ public class UsuarioDAL {
                     }
                 }
                 lista.add(new Usuario(
-                        rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
                         rs.getString(5), rs.getString(6), rs.getString(7),
                         rs.getString(8), img));
             }
@@ -56,25 +56,25 @@ public class UsuarioDAL {
         }
         return lista;
     }
-    
-    public boolean validarUsuario(String Usuario){
-        String mensaje="";
+
+    public boolean validarUsuario(String Usuario) {
+        String mensaje = "";
         try {
-            PreparedStatement pst= cn.prepareStatement("select count(*) from usuario where Usuario=?");
+            PreparedStatement pst = cn.prepareStatement("select count(*) from usuario where Usuario=?");
             pst.setString(1, Usuario);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1)>0;
+                return rs.getInt(1) > 0;
             }
-            pst.close(); rs.close();
+            pst.close();
+            rs.close();
         } catch (Exception ex) {
             mensaje = ex.getMessage();
-            System.out.println("Error al validar Usuario "+mensaje);
+            System.out.println("Error al validar Usuario " + mensaje);
         }
         return false;
     }
 
-    
     public int agregarUsuario(Usuario unUsuario, String archivo) {
         int r;
         FileInputStream fis = null;
@@ -111,21 +111,21 @@ public class UsuarioDAL {
         try {
             CallableStatement cs = cn.prepareCall("{call sp_buscarUsuario(?)}");
             cs.setInt(1, codigo);
-            ResultSet rs = cs.executeQuery();            
-                if (rs.next()) {
+            ResultSet rs = cs.executeQuery();
+            if (rs.next()) {
                 Blob blob = rs.getBlob(9);
                 byte[] data = blob != null ? blob.getBytes(1, (int) blob.length()) : null;
-               Image img = null;
+                Image img = null;
                 if (data != null) {
                     try {
                         img = ImageIO.read(new ByteArrayInputStream(data));
                     } catch (IOException ex) {
                         System.out.println("Error al leer la imagen; " + ex.getMessage());
                     }
-                }                
-                ousuario = new Usuario(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), 
+                }
+                ousuario = new Usuario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
                         rs.getString(5), rs.getString(6), rs.getString(7),
-                        rs.getString(8), img);                
+                        rs.getString(8), img);
             } else {
                 ousuario = null;
             }
@@ -155,8 +155,8 @@ public class UsuarioDAL {
                 fis = new FileInputStream(file);
                 cs.setBinaryStream(9, fis, (int) file.length());
             } else {
-                cs.setNull(9, java.sql.Types.BLOB); // Establece NULL si no hay foto
-            }            
+                cs.setNull(9, java.sql.Types.BLOB); 
+            }
             cs.setString(10, unUsuario.getUsuariomod());
             int f = cs.executeUpdate();
             if (f > 0) {
