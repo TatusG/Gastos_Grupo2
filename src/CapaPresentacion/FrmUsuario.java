@@ -346,11 +346,16 @@ public class FrmUsuario extends javax.swing.JFrame {
                 if (oUsuarioBL.validarUsuario(txtUsuario.getText())) {
                     JOptionPane.showMessageDialog(this, "El usuario ya existe");
                 } else {
+                    String nuevacontraseña = null;
+                    if (!txtContraseña.getText().isEmpty()) {
+                        nuevacontraseña= txtContraseña.getText();                        
+                    }
+                            
                     u = oUsuarioBL.agregarUsuario(new Usuario(
                             cboPerfil.getSelectedItem().toString(),
                             cboestado.getSelectedItem().toString(),
                             txtUsuario.getText(),
-                            txtContraseña.getText(),
+                            nuevacontraseña,
                             txtAPaterno.getText(),
                             txtAMaterno.getText(),
                             txtNombre.getText(),

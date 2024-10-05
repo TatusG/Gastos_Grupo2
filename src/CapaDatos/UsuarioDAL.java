@@ -146,7 +146,11 @@ public class UsuarioDAL {
             cs.setString(2, unUsuario.getPerfil());
             cs.setString(3, unUsuario.getEstado());
             cs.setString(4, unUsuario.getUsuario());
-            cs.setString(5, unUsuario.getPassword());
+            if (unUsuario.getPassword() != null && !unUsuario.getPassword().isEmpty()) {
+                cs.setString(5, unUsuario.getPassword());
+            } else {
+                cs.setNull(5, java.sql.Types.VARCHAR); 
+            }
             cs.setString(6, unUsuario.getApellidoPaterno());
             cs.setString(7, unUsuario.getApellidoMaterno());
             cs.setString(8, unUsuario.getNombres());
@@ -155,7 +159,7 @@ public class UsuarioDAL {
                 fis = new FileInputStream(file);
                 cs.setBinaryStream(9, fis, (int) file.length());
             } else {
-                cs.setNull(9, java.sql.Types.BLOB); 
+                cs.setNull(9, java.sql.Types.BLOB);
             }
             cs.setString(10, unUsuario.getUsuariomod());
             int f = cs.executeUpdate();
