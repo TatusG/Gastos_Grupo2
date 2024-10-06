@@ -25,6 +25,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         cargarDepartamento();
         cargarEstado();
         listar();
+        personalizarTabla();
         txtId.setVisible(false);
     }
 
@@ -115,6 +116,20 @@ public class FrmProveedor extends javax.swing.JFrame {
         btnGuardar.setEnabled(botonGuardar);
         btnBuscar.setEnabled(botonBuscar);
         btnEliminar.setEnabled(botonEliminar);
+    }
+    
+    private void personalizarTabla(){
+        tblLista.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tblLista.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblLista.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tblLista.getColumnModel().getColumn(3).setPreferredWidth(250);
+        tblLista.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tblLista.getColumnModel().getColumn(5).setPreferredWidth(100);
+        tblLista.getColumnModel().getColumn(6).setPreferredWidth(100);        
+        tblLista.getColumnModel().getColumn(7).setPreferredWidth(100);
+        tblLista.getColumnModel().getColumn(8).setPreferredWidth(100);
+        tblLista.getColumnModel().getColumn(9).setPreferredWidth(200);
+        tblLista.getColumnModel().getColumn(10).setPreferredWidth(100);        
     }
 
     void mensaje(String men) {

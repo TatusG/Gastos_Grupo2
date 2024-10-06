@@ -11,10 +11,10 @@ package CapaPresentacion;
 public class FrmPrincipal extends javax.swing.JFrame {
 
     private String perfilUsuario;
-   
+      
 
-    public FrmPrincipal(String perfil) {
-        initComponents();
+    public FrmPrincipal(String perfil) {        
+        initComponents();        
         setLocationRelativeTo(null);
         setResizable(false);
         this.perfilUsuario = perfil;
@@ -154,8 +154,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_OpCloseActionPerformed
 
     private void OpAdminUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpAdminUsuarioActionPerformed
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:        
         FrmUsuario us = new FrmUsuario();        
         us.setVisible(true);
     }//GEN-LAST:event_OpAdminUsuarioActionPerformed

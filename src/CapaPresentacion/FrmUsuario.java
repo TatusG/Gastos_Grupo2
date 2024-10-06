@@ -25,11 +25,12 @@ public class FrmUsuario extends javax.swing.JFrame {
     String archivo, nombre;
     UsuarioBL oUsuarioBL = new UsuarioBL();
 
-    public FrmUsuario() {
+    public FrmUsuario() {        
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         listar();
+        personalizarTabla();
     }
 
     void listar() {
@@ -69,11 +70,20 @@ public class FrmUsuario extends javax.swing.JFrame {
         btnBuscar.setEnabled(botonBuscar);
         btnEliminar.setEnabled(botonEliminar);
     }
+    
+    private void personalizarTabla(){
+        tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblUsuario.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblUsuario.getColumnModel().getColumn(3).setPreferredWidth(200);
+        tblUsuario.getColumnModel().getColumn(4).setPreferredWidth(200);
+        tblUsuario.getColumnModel().getColumn(5).setPreferredWidth(200);
+        tblUsuario.getColumnModel().getColumn(6).setPreferredWidth(200);        
+    }
 
     void mensaje(String men) {
         JOptionPane.showMessageDialog(this, men, "Aviso", 1);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,6 +120,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         txtContraseña = new javax.swing.JPasswordField();
         jLabel10 = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -181,6 +192,8 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         });
 
+        txtId.setEnabled(false);
+
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFoto.setToolTipText("");
         lblFoto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -194,37 +207,48 @@ public class FrmUsuario extends javax.swing.JFrame {
 
         jLabel10.setText("Código");
 
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/atras.png"))); // NOI18N
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jLabel9))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(370, 370, 370)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(103, 103, 103)
-                                .addComponent(jLabel9))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,8 +278,11 @@ public class FrmUsuario extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addGap(71, 71, 71))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBuscar, btnEliminar, btnGuardar, btnNuevo, btnRegresar});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -283,7 +310,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
@@ -295,16 +322,20 @@ public class FrmUsuario extends javax.swing.JFrame {
                         .addComponent(btnSeleccionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBuscar, btnEliminar, btnGuardar, btnNuevo, btnRegresar});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -348,9 +379,9 @@ public class FrmUsuario extends javax.swing.JFrame {
                 } else {
                     String nuevacontraseña = null;
                     if (!txtContraseña.getText().isEmpty()) {
-                        nuevacontraseña= txtContraseña.getText();                        
+                        nuevacontraseña = txtContraseña.getText();
                     }
-                            
+
                     u = oUsuarioBL.agregarUsuario(new Usuario(
                             cboPerfil.getSelectedItem().toString(),
                             cboestado.getSelectedItem().toString(),
@@ -463,6 +494,11 @@ public class FrmUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:        
+                
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -504,6 +540,7 @@ public class FrmUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cboPerfil;
     private javax.swing.JComboBox<String> cboestado;
