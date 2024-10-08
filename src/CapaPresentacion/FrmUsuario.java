@@ -4,6 +4,8 @@
  */
 package CapaPresentacion;
 
+import CapaEntidades.Estado;
+import CapaEntidades.Perfil;
 import CapaEntidades.Usuario;
 import CapaNegocio.UsuarioBL;
 import java.sql.Date;
@@ -13,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
@@ -25,11 +28,13 @@ public class FrmUsuario extends javax.swing.JFrame {
     String archivo, nombre;
     UsuarioBL oUsuarioBL = new UsuarioBL();
 
-    public FrmUsuario() {        
+    public FrmUsuario() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         listar();
+        cargarEstado();
+        cargarPerfil();
         personalizarTabla();
     }
 
@@ -54,6 +59,24 @@ public class FrmUsuario extends javax.swing.JFrame {
         }
         tblUsuario.setModel(p_tabla);
     }
+    
+    void cargarEstado() {
+        cboestado.removeAllItems();
+        List<Estado> estado = new ArrayList();
+        estado = oUsuarioBL.listarEstado();
+        for (Estado oestado : estado) {
+            cboestado.addItem(oestado.getNombre());
+        }
+    }
+    
+    void cargarPerfil() {
+        cboPerfil.removeAllItems();
+        List<Perfil> perfil = new ArrayList();
+        perfil = oUsuarioBL.listarPerfil();
+        for (Perfil operfil : perfil) {
+            cboPerfil.addItem(operfil.getPerfil());
+        }
+    }
 
     void limpiar() {
         txtUsuario.setText("");
@@ -63,6 +86,10 @@ public class FrmUsuario extends javax.swing.JFrame {
         txtNombre.setText("");
         lblFoto.setIcon(null);
         txtId.setText("");
+        cboPerfil.removeAllItems();
+        cboestado.removeAllItems();
+        cargarEstado();
+        cargarPerfil();
     }
 
     void activarbotones(boolean botonGuardar, boolean botonBuscar, boolean botonEliminar) {
@@ -70,15 +97,15 @@ public class FrmUsuario extends javax.swing.JFrame {
         btnBuscar.setEnabled(botonBuscar);
         btnEliminar.setEnabled(botonEliminar);
     }
-    
-    private void personalizarTabla(){
+
+    private void personalizarTabla() {
         tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(80);
         tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(150);
         tblUsuario.getColumnModel().getColumn(2).setPreferredWidth(150);
         tblUsuario.getColumnModel().getColumn(3).setPreferredWidth(200);
         tblUsuario.getColumnModel().getColumn(4).setPreferredWidth(200);
         tblUsuario.getColumnModel().getColumn(5).setPreferredWidth(200);
-        tblUsuario.getColumnModel().getColumn(6).setPreferredWidth(200);        
+        tblUsuario.getColumnModel().getColumn(6).setPreferredWidth(200);
     }
 
     void mensaje(String men) {
@@ -125,15 +152,11 @@ public class FrmUsuario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Usuario");
+        jLabel1.setText("REGISTRO DE USUARIOS");
 
         jLabel2.setText("Perfil");
 
-        cboPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Operador" }));
-
         jLabel3.setText("Estado");
-
-        cboestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
         jLabel4.setText("Usuario");
 
@@ -160,6 +183,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblUsuario);
 
+        btnNuevo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Añadir.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +192,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Guardar.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +201,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -184,6 +210,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Eliminar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -196,8 +223,10 @@ public class FrmUsuario extends javax.swing.JFrame {
 
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFoto.setToolTipText("");
+        lblFoto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         lblFoto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btnSeleccionar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSeleccionar.setText("Cargar Foto");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,7 +236,9 @@ public class FrmUsuario extends javax.swing.JFrame {
 
         jLabel10.setText("Código");
 
-        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/atras.png"))); // NOI18N
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Actualizar.png"))); // NOI18N
+        btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
@@ -245,40 +276,39 @@ public class FrmUsuario extends javax.swing.JFrame {
                         .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(37, 37, 37))
             .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(370, 370, 370)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(70, 70, 70)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addComponent(txtUsuario)
-                            .addComponent(txtContraseña))
-                        .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtAPaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addComponent(txtAMaterno)
-                            .addComponent(txtNombre))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(71, 71, 71))
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(txtUsuario)
+                    .addComponent(txtContraseña))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtAPaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(txtAMaterno)
+                    .addComponent(txtNombre))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cboPerfil, 0, 122, Short.MAX_VALUE)
+                    .addComponent(cboestado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(290, 290, 290)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBuscar, btnEliminar, btnGuardar, btnNuevo, btnRegresar});
@@ -349,6 +379,8 @@ public class FrmUsuario extends javax.swing.JFrame {
         if (btnNuevo.getText().equalsIgnoreCase("Nuevo")) {
             btnNuevo.setText("Cancelar");
             txtId.setEditable(false);
+            cargarEstado();
+            cargarPerfil();
             limpiar();
             activarbotones(true, false, false);
         } else {
@@ -421,8 +453,8 @@ public class FrmUsuario extends javax.swing.JFrame {
         activarbotones(false, true, false);
         btnNuevo.setText("NUEVO");
         listar();
+        personalizarTabla();
         limpiar();
-
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -434,6 +466,7 @@ public class FrmUsuario extends javax.swing.JFrame {
 
             int m = oUsuarioBL.eliminarUsuario(codigo);
             listar();
+            personalizarTabla();
             limpiar();
             btnNuevo.setText("Nuevo");
         } else {
@@ -473,6 +506,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         }
         listar();
+        personalizarTabla();
         activarbotones(true, true, true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -495,8 +529,11 @@ public class FrmUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:        
-                
+        // TODO add your handling code here:   
+        FrmPrincipal frmPrincipal = new FrmPrincipal("Administrador");
+        frmPrincipal.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**

@@ -18,18 +18,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmGastos extends javax.swing.JFrame {
     
-    
+    private String perfilUsuario;
 
-
-    /**
-     * Creates new form FrmGastos
-     */
-    public FrmGastos() {
+    public FrmGastos(String perfil) {
         initComponents();
+        this.perfilUsuario = perfil;
         setLocationRelativeTo(null);
         setResizable(false);
         listar();
         txtId.setVisible(false);
+    }
+    
+    public FrmGastos() {
+        
     }
     
     
@@ -109,6 +110,7 @@ public class FrmGastos extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtId = new javax.swing.JTextField();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,6 +153,7 @@ public class FrmGastos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblGastos);
 
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Añadir.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +161,7 @@ public class FrmGastos extends javax.swing.JFrame {
             }
         });
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,6 +169,7 @@ public class FrmGastos extends javax.swing.JFrame {
             }
         });
 
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Guardar.png"))); // NOI18N
         btnGuardar.setText("Agregar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,10 +177,19 @@ public class FrmGastos extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Eliminar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Actualizar.png"))); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -211,17 +225,19 @@ public class FrmGastos extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 134, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnNuevo)
-                        .addGap(66, 66, 66)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
                         .addComponent(btnGuardar)
                         .addGap(57, 57, 57)
                         .addComponent(btnBuscar)
                         .addGap(76, 76, 76)
                         .addComponent(btnEliminar)
-                        .addGap(272, 272, 272))
+                        .addGap(47, 47, 47)
+                        .addComponent(btnRegresar)
+                        .addGap(150, 150, 150))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42))))
@@ -268,11 +284,12 @@ public class FrmGastos extends javax.swing.JFrame {
                             .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnEliminar))
-                .addContainerGap(75, Short.MAX_VALUE))
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -397,6 +414,13 @@ public class FrmGastos extends javax.swing.JFrame {
         activarbotones(true, true, true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        FrmPrincipal frmPrincipal = new FrmPrincipal(perfilUsuario);
+        frmPrincipal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -438,6 +462,7 @@ public class FrmGastos extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cboMoneda;
     private javax.swing.JComboBox<String> cboTipo;
     private javax.swing.JLabel jLabel1;

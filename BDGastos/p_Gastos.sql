@@ -107,7 +107,25 @@ BEGIN
 END $$
 DELIMITER ;
 
+DELIMITER $$
+create procedure sp_listarTDocumento ()
+begin
+	select *
+    from tipodocumento;    
+end; $$
+DELIMITER ;
+
+DELIMITER $$
+create procedure sp_listarMoneda ()
+begin
+	select *
+    from moneda;    
+end; $$
+DELIMITER ;
+
 select * from gastos;
+
+call sp_listarMoneda;
 
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------

@@ -24,12 +24,18 @@ public class FrmConsultaProveedor extends javax.swing.JFrame {
 
     ProveedorBL oProveedorBL = new ProveedorBL();
     ConsultasProveedorBL oConsultasProveedorBL = new ConsultasProveedorBL();
+    private String perfilUsuario;
     
-    public FrmConsultaProveedor() {
+    public FrmConsultaProveedor(String perfil) {
         initComponents();
+        this.perfilUsuario = perfil;
         setLocationRelativeTo(null);
         setResizable(false);
         cargarDepartamento();
+    }
+    
+    public FrmConsultaProveedor() {
+        this("Operador");  
     }
     
     void cargarDepartamento() {
@@ -127,10 +133,11 @@ public class FrmConsultaProveedor extends javax.swing.JFrame {
         cboDepartamento = new javax.swing.JComboBox<>();
         cboProvincia = new javax.swing.JComboBox<>();
         cboDistrito = new javax.swing.JComboBox<>();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("CONSULTAR PROVEEDOR");
 
         tblConsulta.setModel(new javax.swing.table.DefaultTableModel(
@@ -146,27 +153,42 @@ public class FrmConsultaProveedor extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblConsulta);
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Departamento:");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Provincia:");
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Distrito:");
 
+        cboDepartamento.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cboDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboDepartamentoActionPerformed(evt);
             }
         });
 
+        cboProvincia.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cboProvincia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboProvinciaActionPerformed(evt);
             }
         });
 
+        cboDistrito.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cboDistrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboDistritoActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Actualizar.png"))); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -189,20 +211,28 @@ public class FrmConsultaProveedor extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(cboDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(232, 232, 232)
-                        .addComponent(jLabel1)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel1)
+                            .addGap(211, 211, 211)
+                            .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(21, 21, 21)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel1)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -212,7 +242,7 @@ public class FrmConsultaProveedor extends javax.swing.JFrame {
                     .addComponent(cboDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -243,6 +273,13 @@ public class FrmConsultaProveedor extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_cboDistritoActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        FrmPrincipal frmPrincipal = new FrmPrincipal(perfilUsuario);
+        frmPrincipal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,6 +317,7 @@ public class FrmConsultaProveedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cboDepartamento;
     private javax.swing.JComboBox<String> cboDistrito;
     private javax.swing.JComboBox<String> cboProvincia;

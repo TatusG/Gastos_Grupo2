@@ -131,6 +131,23 @@ public class ProveedorDAL {
         }
         return false;
     }
+    
+    public boolean validarRazonSocial(String RazonSocial){
+        String mensaje = "";
+        try {
+            PreparedStatement pst = cn.prepareStatement("select count(*) from proveedores where RazonSocial =?");
+            pst.setString(1, RazonSocial);	    
+	    ResultSet rs = pst.executeQuery();            
+            if (rs.next()) {
+                return rs.getInt(1)>0;
+            }
+            pst.close(); rs.close();
+        } catch (Exception ex) {
+            mensaje =ex.getMessage();
+            System.out.println("Error al validar RazonSocial"+mensaje);
+        }
+        return false;
+    }
 
     public int agregarProveedor(Proveedor unProveedor) {
         int r;
@@ -181,6 +198,44 @@ public class ProveedorDAL {
         }
         return oproveedor;
     }
+    
+    public boolean validarRUCExcluyendoId(String RUC, int IdProveedor){
+     String mensaje = "";
+        try {
+            PreparedStatement pst = cn.prepareStatement("select count(*) from proveedores where RUC =? and IdProveedor!=?");
+            pst.setString(1, RUC);
+            pst.setInt(2, IdProveedor);
+	    ResultSet rs = pst.executeQuery();            
+            if (rs.next()) {
+                return rs.getInt(1)>0;
+            }
+            pst.close(); rs.close();
+        } catch (Exception ex) {
+            mensaje =ex.getMessage();
+            System.out.println("Error al validar RUC"+mensaje);
+        }
+        return false; 
+    }
+    
+    public boolean validarRazonSocialExcluyendoId(String RazonSocial, int IdProveedor){
+        String mensaje = "";
+        try {
+            PreparedStatement pst = cn.prepareStatement("select count(*) from proveedores where RazonSocial =? AND IdProveedor !=?");
+            pst.setString(1, RazonSocial);
+            pst.setInt(2, IdProveedor);
+	    ResultSet rs = pst.executeQuery();            
+            if (rs.next()) {
+                return rs.getInt(1)>0;
+            }
+            pst.close(); rs.close();
+        } catch (Exception ex) {
+            mensaje =ex.getMessage();
+            System.out.println("Error al validar RazonSocial"+mensaje);
+        }
+        return false;
+    }
+    
+    
 
     public int actualizarProveedor(Proveedor unProveedor) {
         int r;

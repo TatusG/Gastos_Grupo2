@@ -39,6 +39,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         content = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MFile = new javax.swing.JMenu();
         OpClose = new javax.swing.JMenuItem();
@@ -54,15 +55,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/fondo.jpg"))); // NOI18N
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1222, Short.MAX_VALUE)
+            .addComponent(jLabel1)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 694, Short.MAX_VALUE)
+            .addComponent(jLabel1)
         );
 
         MFile.setText("File");
@@ -134,15 +137,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -161,9 +160,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void OpAdminProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpAdminProveedoresActionPerformed
         // TODO add your handling code here:
-        FrmProveedor pr = new FrmProveedor();
-
+        FrmProveedor pr = new FrmProveedor(perfilUsuario);
         pr.setVisible(true);
+        this.dispose();
 
 
     }//GEN-LAST:event_OpAdminProveedoresActionPerformed
@@ -226,6 +225,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem OpConsGastos;
     private javax.swing.JMenuItem OpConsProve;
     private javax.swing.JPanel content;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables

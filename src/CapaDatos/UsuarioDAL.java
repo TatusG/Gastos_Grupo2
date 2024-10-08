@@ -4,6 +4,8 @@
  */
 package CapaDatos;
 
+import CapaEntidades.Estado;
+import CapaEntidades.Perfil;
 import CapaEntidades.Usuario;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -55,6 +57,40 @@ public class UsuarioDAL {
             System.out.println("Error en listarUsuario" + e.getMessage());
         }
         return lista;
+    }
+    
+    public List listarEstado() {
+        List<Estado> estado = new ArrayList();
+        estado.add(new Estado (0,"<Seleccionar>"));
+        try {
+            CallableStatement cs = cn.prepareCall("{call sp_listarEstado}");
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                estado.add(new Estado(rs.getInt(1),rs.getString(2)));
+            }
+            cs.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println("Estado " + e.getMessage());
+        }
+        return estado;
+    }
+    
+    public List listarPerfil() {
+        List<Perfil> perfil = new ArrayList();
+        perfil.add(new Perfil (0,"<Seleccionar>"));
+        try {
+            CallableStatement cs = cn.prepareCall("{call sp_listarPerfil}");
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                perfil.add(new Perfil(rs.getInt(1),rs.getString(2)));
+            }
+            cs.close();
+            rs.close();
+        } catch (Exception e) {
+            System.out.println("Perfil " + e.getMessage());
+        }
+        return perfil;
     }
 
     public boolean validarUsuario(String Usuario) {

@@ -20,6 +20,14 @@ public class UsuarioBL {
         return oUsuarioDAL.listarUsuario();
     }
     
+    public List listarEstado() {
+        return oUsuarioDAL.listarEstado();
+    }
+    
+    public List listarPerfil() {
+        return oUsuarioDAL.listarPerfil();
+    }
+    
     public boolean validarUsuario(String Usuario){
         return oUsuarioDAL.validarUsuario(Usuario);
     }
