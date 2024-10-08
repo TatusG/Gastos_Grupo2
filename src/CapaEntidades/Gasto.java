@@ -20,12 +20,8 @@ public class Gasto {
     private String proveedor;
     private String tipoMoneda;
     private double importe;
-    private Date fechaCreacion;
-    private String usuariocreacion;
-    private Date fechaModificacion;
-    private String usuariomodificacion;
-    
-   
+    private Date fecha;
+    private String usuario;
 
     public Gasto() {
     }
@@ -38,9 +34,21 @@ public class Gasto {
         this.proveedor = proveedor;
         this.tipoMoneda = tipoMoneda;
         this.importe = importe;
+    }    
+
+    public Gasto(String fechaGasto, String tipoDoc, String numDoc, String Concepto, String proveedor, String tipoMoneda, double importe, Date fecha, String usuario) {
+        this.fechaGasto = fechaGasto;
+        this.tipoDoc = tipoDoc;
+        this.numDoc = numDoc;
+        this.Concepto = Concepto;
+        this.proveedor = proveedor;
+        this.tipoMoneda = tipoMoneda;
+        this.importe = importe;
+        this.fecha = fecha;
+        this.usuario = usuario;
     }
 
-    public Gasto(int idGasto, String fechaGasto, String tipoDoc, String numDoc, String Concepto, String proveedor, String tipoMoneda, double importe) {
+    public Gasto(int idGasto, String fechaGasto, String tipoDoc, String numDoc, String Concepto, String proveedor, String tipoMoneda, double importe, Date fecha, String usuario) {
         this.idGasto = idGasto;
         this.fechaGasto = fechaGasto;
         this.tipoDoc = tipoDoc;
@@ -49,6 +57,8 @@ public class Gasto {
         this.proveedor = proveedor;
         this.tipoMoneda = tipoMoneda;
         this.importe = importe;
+        this.fecha = fecha;
+        this.usuario = usuario;
     }
     
     
@@ -117,38 +127,21 @@ public class Gasto {
         this.importe = importe;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public String getUsuariocreacion() {
-        return usuariocreacion;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setUsuariocreacion(String usuariocreacion) {
-        this.usuariocreacion = usuariocreacion;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
-
-    public Date getFechaModificacion() {
-        return fechaModificacion;
-    }
-
-    public void setFechaModificacion(Date fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
-    }
-
-    public String getUsuariomodificacion() {
-        return usuariomodificacion;
-    }
-
-    public void setUsuariomodificacion(String usuariomodificacion) {
-        this.usuariomodificacion = usuariomodificacion;
-    }
-    
-    
+     
     
 }

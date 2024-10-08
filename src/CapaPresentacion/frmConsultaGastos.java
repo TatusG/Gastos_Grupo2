@@ -1,9 +1,12 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package CapaPresentacion;
 
+import CapaEntidades.ConsultaGasto;
+import CapaNegocio.ConsultaGastoBL;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class frmConsultaGastos extends javax.swing.JFrame {
     
     
-    
+    ConsultaGastoBL oConsultaGastoBL = new ConsultaGastoBL();
 
     /**
      * Creates new form frmConsultaGastos
@@ -24,7 +27,7 @@ public class frmConsultaGastos extends javax.swing.JFrame {
         modelo();
     }
     
-    void modelo(){
+    public void modelo(){
         DefaultTableModel model = new DefaultTableModel();
         String[] titulos ={"Fecha Gasto","Tipo Documento","Numero Documento","Concepto","Proveedor","TipoMoneda","Importe"};
         model.setColumnIdentifiers(titulos);
@@ -141,24 +144,60 @@ public class frmConsultaGastos extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         String proveedor,concepto;
+        proveedor = txtProveedor.getText();
+        concepto = txtConcepto.getText();
+        
+        
         if(txtProveedor.getText().isEmpty()){
             
             proveedor = "NULL";
+//            concepto = txtConcepto.getText();
             
         }else{
             proveedor = txtProveedor.getText();
+//            concepto = txtConcepto.getText();
         }
         
         if(txtConcepto.getText().isEmpty()){
             
             concepto = "NULL";
+//            proveedor = txtProveedor.getText();
             
         }else{
             concepto = txtConcepto.getText();
+//            proveedor = txtProveedor.getText();
         }
         
+        DefaultTableModel model = new DefaultTableModel();
+        String[] titulos ={"Fecha Gasto","Tipo Documento","Numero Documento","Concepto","Proveedor","TipoMoneda","Importe"};
+        model.setColumnIdentifiers(titulos);
         
-//        JOptionPane.showMessageDialog(null, "proveedor: "+proveedor + " concepto: " + concepto);
+       
+        tblGasto.setModel(model); 
+        
+        
+        
+        List<ConsultaGasto> lista;
+        lista = oConsultaGastoBL.ConsultarGasto(proveedor, concepto);
+        System.out.println("Cantidad de gastos: "+lista.size());
+        
+        for (ConsultaGasto oConsultaGasto:lista) {
+            Object data[]={
+                oConsultaGasto.getFechaGasto(), 
+                oConsultaGasto.getTipoDoc(), 
+                oConsultaGasto.getNumDoc(), 
+                oConsultaGasto.getProveedor(),
+                oConsultaGasto.getConcepto(), 
+                oConsultaGasto.getTipoMoneda(), 
+                oConsultaGasto.getImporte()};
+                
+            model.addRow(data);
+        }
+        tblGasto.setModel(model);   
+        
+
+    
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**

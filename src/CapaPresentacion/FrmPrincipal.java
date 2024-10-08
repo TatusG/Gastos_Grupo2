@@ -11,10 +11,9 @@ package CapaPresentacion;
 public class FrmPrincipal extends javax.swing.JFrame {
 
     private String perfilUsuario;
-      
 
-    public FrmPrincipal(String perfil) {        
-        initComponents();        
+    public FrmPrincipal(String perfil) {
+        initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         this.perfilUsuario = perfil;
@@ -24,7 +23,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void configurarMenuPerfil() {
         if ("operador".equalsIgnoreCase(perfilUsuario)) {
             MUsuario.setVisible(false);
-        }else{
+        } else {
             MUsuario.setVisible(true);
         }
     }
@@ -154,7 +153,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void OpAdminUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpAdminUsuarioActionPerformed
         // TODO add your handling code here:        
-        FrmUsuario us = new FrmUsuario();        
+        FrmUsuario us = new FrmUsuario();
         us.setVisible(true);
     }//GEN-LAST:event_OpAdminUsuarioActionPerformed
 
@@ -163,15 +162,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmProveedor pr = new FrmProveedor(perfilUsuario);
         pr.setVisible(true);
         this.dispose();
-
-
     }//GEN-LAST:event_OpAdminProveedoresActionPerformed
 
     private void OpAdminGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpAdminGastosActionPerformed
         // TODO add your handling code here:
-
-        //FrmGastos gas = new FrmGastos();
-        //gas.setVisible(true);
+        FrmGastos gas = new FrmGastos();
+        gas.setVisible(true);
     }//GEN-LAST:event_OpAdminGastosActionPerformed
 
     private void OpConsProveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpConsProveActionPerformed

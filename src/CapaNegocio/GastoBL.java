@@ -28,7 +28,7 @@ public class GastoBL {
     
     
     public int actualizarGasto(Gasto oGasto){
-            return oGastoDAL.agregarGasto(oGasto);
+            return oGastoDAL.actualizarGasto(oGasto);
     }
     
     
@@ -39,5 +39,17 @@ public class GastoBL {
     
     public Gasto buscarGasto(int codigo){
         return oGastoDAL.buscarGasto(codigo);        
+    }
+    
+    public List listarDocumento(){
+        return oGastoDAL.listarTipoDocumento();
+    }
+    
+    public List listarMoneda(){
+        return oGastoDAL.listarMoneda();
+    }
+    
+    public boolean validarRazonSocial(String RazonSocial) {
+        return oGastoDAL.validarRazonSocial(RazonSocial);
     }
 }
