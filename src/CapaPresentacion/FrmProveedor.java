@@ -558,8 +558,8 @@ public class FrmProveedor extends javax.swing.JFrame {
                 txtEmail.setText(oproveedor.getEmail());
                 cboEstado.setSelectedItem(oproveedor.getEstado());
             }
-        }        
-        activarbotones(true, true, true);        
+        }
+        activarbotones(true, true, true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cboDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDepartamentoActionPerformed
@@ -577,17 +577,25 @@ public class FrmProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_cboProvinciaActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        String men = "";
-        if (oProveedorBL.eliminarProveedor(txtRUC.getText()) == 1) {
-            men = "Registro Eliminado";
+        // TODO add your handling code here:               
+        int men = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Confirmar", JOptionPane.YES_NO_OPTION);
+
+        if (men == JOptionPane.YES_NO_OPTION) {
+            String RUC = txtRUC.getText();
+            int proveeEliminado = oProveedorBL.eliminarProveedor(RUC);
+
+            if (proveeEliminado==1) {
+                JOptionPane.showMessageDialog(this, "Proveedor eliminado");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar proveedor. Verificar RUC");
+            }
         } else {
-            men = "No se puede eliminar";
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar");
         }
-        JOptionPane.showMessageDialog(this, men);
-        listar();
         activarbotones(false, true, false);
+        listar();
         limpiar();
+        personalizarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed

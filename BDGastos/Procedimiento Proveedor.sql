@@ -161,7 +161,7 @@ begin
 end; $$
 DELIMITER ;
 
-DELIMITER $$ -- Modificado
+DELIMITER $$ 
 create procedure sp_buscarProveedor(p_RUC VARCHAR(11))
 Begin
 	SELECT 

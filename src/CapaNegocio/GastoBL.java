@@ -32,13 +32,13 @@ public class GastoBL {
     }
     
     
-    public int eliminarGasto(int id){
-        return oGastoDAL.eliminarGasto(id);
+    public int eliminarGasto(String NroDocumento){
+        return oGastoDAL.eliminarGasto(NroDocumento);
     }
     
     
-    public Gasto buscarGasto(int codigo){
-        return oGastoDAL.buscarGasto(codigo);        
+    public Gasto buscarGasto(String NroDocumento){
+        return oGastoDAL.buscarGasto(NroDocumento);        
     }
     
     public List listarDocumento(){

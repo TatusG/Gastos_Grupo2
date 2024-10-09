@@ -16,15 +16,22 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class FrmGastos extends javax.swing.JFrame {
+    
+    private String perfilUsuario;
 
-    public FrmGastos() {
+    public FrmGastos(String perfil) {
         initComponents();
+        this.perfilUsuario = perfil;
         setLocationRelativeTo(null);
         setResizable(false);        
         listar();
         cargartipodocumento();
         cargarmoneda();
-        txtId.setVisible(false);
+        txtId.setVisible(true);
+    }
+    
+    public FrmGastos() {
+        this("Operador");
     }
 
     GastoBL oGastoBL = new GastoBL();
@@ -198,28 +205,16 @@ public class FrmGastos extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Actualizar.png"))); // NOI18N
         jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnNuevo)
-                        .addGap(66, 66, 66)
-                        .addComponent(btnGuardar)
-                        .addGap(57, 57, 57)
-                        .addComponent(btnBuscar)
-                        .addGap(76, 76, 76)
-                        .addComponent(btnEliminar)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(113, 113, 113))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -247,6 +242,23 @@ public class FrmGastos extends javax.swing.JFrame {
                         .addGap(395, 395, 395)
                         .addComponent(jLabel1)))
                 .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnNuevo)
+                        .addGap(66, 66, 66)
+                        .addComponent(btnGuardar)
+                        .addGap(57, 57, 57)
+                        .addComponent(btnBuscar)
+                        .addGap(76, 76, 76)
+                        .addComponent(btnEliminar)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(113, 113, 113))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,8 +369,8 @@ public class FrmGastos extends javax.swing.JFrame {
                             txtFecha.getText(),
                             cboTipo.getSelectedItem().toString(),
                             txtDocumento.getText(),
-                            txtConcepto.getText(),
                             txtProveedor.getText(),
+                            txtConcepto.getText(),                            
                             cboMoneda.getSelectedItem().toString(),
                             Double.parseDouble(txtImporte.getText()),
                             fechaActual,
@@ -366,13 +378,14 @@ public class FrmGastos extends javax.swing.JFrame {
                     ));
                     System.out.println("Gasto agregado, resultado; " + g);
                 } else {
+                    System.out.println("Proveedor: " + txtProveedor.getText());
                     g = oGastoBL.actualizarGasto(new Gasto(
                             Integer.parseInt(txtId.getText()),
                             txtFecha.getText(),
                             cboTipo.getSelectedItem().toString(),
                             txtDocumento.getText(),
-                            txtConcepto.getText(),
                             txtProveedor.getText(),
+                            txtConcepto.getText(),                            
                             cboMoneda.getSelectedItem().toString(),
                             Double.parseDouble(txtImporte.getText()),
                             fechaActual,
@@ -380,8 +393,7 @@ public class FrmGastos extends javax.swing.JFrame {
                     System.out.println("Gasto actualizado, resultado: " + g);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {            
             mensaje(e.getMessage());
         }
         activarbotones(false, true, false);
@@ -394,37 +406,40 @@ public class FrmGastos extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        GastoBL oGastoBL = new GastoBL();
+        
         int me = JOptionPane.showConfirmDialog(null, "Está Seguro?", "Confirmar", JOptionPane.YES_NO_OPTION);
-        if (me == JOptionPane.YES_OPTION) {
-
-            int codigo = Integer.parseInt(txtId.getText());
-
-            int m = oGastoBL.eliminarGasto(codigo);
-            listar();
-            cargartipodocumento();
-            cargarmoneda();
-            limpiar();
-            btnNuevo.setText("Nuevo");
+        
+        if (me == JOptionPane.YES_OPTION) {            
+            String NroDocumento = txtDocumento.getText();
+            
+            int gastoEliminado = oGastoBL.eliminarGasto(NroDocumento); 
+            
+            if (gastoEliminado==1) {
+                JOptionPane.showMessageDialog(this, "Gasto eliminado");
+            }else{
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar el gasto. Verificar Nro Documento");
+            }            
         } else {
-            JOptionPane.showMessageDialog(this, "No se eliminó", "Aviso", 1);
-            limpiar();
-            activarbotones(false, true, true);
+            JOptionPane.showMessageDialog(this, "No se eliminó");            
         }
+        activarbotones(false, true, true);
+        listar();
+        limpiar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        
+        String numeroDocumento = JOptionPane.showInputDialog("Ingrese el número de documento a buscar");
 
-        txtId.setText(JOptionPane.showInputDialog("Ingrese el id de gasto a buscar"));
-
-        if (txtId.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese Id de Gasto");
+        if (numeroDocumento.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese número de documento");
         } else {
-            Gasto ogasto = oGastoBL.buscarGasto(Integer.parseInt(txtId.getText()));
+            Gasto ogasto = oGastoBL.buscarGasto(numeroDocumento);
             if (ogasto == null) {
                 JOptionPane.showMessageDialog(this, "Gasto no existe");
             } else {
+                txtId.setText(String.valueOf(ogasto.getIdGasto()));
                 txtFecha.setText(String.valueOf(ogasto.getFechaGasto()));
                 cboTipo.setSelectedItem(ogasto.getTipoDoc());
                 txtDocumento.setText(ogasto.getNumDoc());
@@ -432,14 +447,17 @@ public class FrmGastos extends javax.swing.JFrame {
                 txtProveedor.setText(ogasto.getProveedor());
                 cboMoneda.setSelectedItem(ogasto.getTipoMoneda());
                 txtImporte.setText("" + ogasto.getImporte());
-
             }
-        }
-        listar();
-        cargartipodocumento();
-        cargarmoneda();
+        }        
         activarbotones(true, true, true);
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        FrmPrincipal frmPrincipal = new FrmPrincipal(perfilUsuario);
+        frmPrincipal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

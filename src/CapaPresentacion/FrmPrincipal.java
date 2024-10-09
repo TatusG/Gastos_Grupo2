@@ -172,6 +172,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void OpConsProveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpConsProveActionPerformed
         // TODO add your handling code here:
+        FrmConsultaProveedor cprovee = new FrmConsultaProveedor();
+        cprovee.setVisible(true);
     }//GEN-LAST:event_OpConsProveActionPerformed
 
     /**

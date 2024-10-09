@@ -158,12 +158,7 @@ begin
 end; $$
 DELIMITER ;
 
-
-call sp_InsertarUsuario("Operador","Activo","PGV3476", "9876543","Consuelo","Vargas","Maria", null,1);
-
-call sp_InsertarUsuario("Operador","Activo","KRS3476", "789123","Vega","Lopez","Karla", null,"Tatiana");
-
-call sp_actualizarusuario(6,"Operador","Activo","KRS3476", "789123","Gonzales","Lopez","Karla", null,"Tatiana");
+call sp_listarUsuario;
 
 call sp_listarPerfil;
 
@@ -182,11 +177,10 @@ select count(*) from usuario where Usuario="KRS3476";
 drop procedure sp_InsertarUsuario;
 
 
+
 -- Usuarios
 -- Tatiana / 123456 - Administrador
 -- Jiussepe / 67589%% - Administrador
 -- Carlos / CT6720 - Administrador
 -- TomasM / 7891234 - Operador
--- CarlosPV / 67jgt - Operador
--- PGV3476 / PG6789$ - Operador
 -- PabloTH / &iu89$ - Administrador

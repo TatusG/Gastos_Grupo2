@@ -15,7 +15,8 @@ begin
     where IdDepartamento=(
 		select IdDepartamento
         from Departamentos
-        where Nombre_Departamento=p_nombreDepartamento);
+        where Nombre_Departamento=p_nombreDepartamento
+        LIMIT 1);
 end; $$
 DELIMITER ;
 
@@ -27,7 +28,8 @@ begin
     where IdProvincia=(
 		select IdProvincia
         from Provincias
-        where Provincia=p_nombreProvincia);
+        where Provincia=p_nombreProvincia
+        LIMIT 1);
 end; $$
 DELIMITER ;
 
@@ -38,3 +40,15 @@ begin
     from Estado;    
 end; $$
 DELIMITER ;
+
+call sp_listarProvincias ('ANCASH');
+
+call sp_listarDistritos ('asuncion');
+
+select * from distritos where idProvincia = 204;
+
+SELECT Provincia, COUNT(*)
+FROM Provincias
+GROUP BY Provincia
+HAVING COUNT(*) > 1;
+

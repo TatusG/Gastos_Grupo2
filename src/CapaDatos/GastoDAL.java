@@ -46,8 +46,8 @@ public class GastoDAL {
             cs.setString(1, unGasto.getFechaGasto());
             cs.setString(2, unGasto.getTipoDoc());
             cs.setString(3, unGasto.getNumDoc());
-            cs.setString(4, unGasto.getConcepto());
-            cs.setString(5, unGasto.getProveedor());
+            cs.setString(4, unGasto.getProveedor());
+            cs.setString(5, unGasto.getConcepto());            
             cs.setString(6, unGasto.getTipoMoneda());
             cs.setDouble(7, unGasto.getImporte());
             cs.setString(8, unGasto.getUsuario());
@@ -74,8 +74,8 @@ public class GastoDAL {
             cs.setString(2, unGasto.getFechaGasto());
             cs.setString(3, unGasto.getTipoDoc());
             cs.setString(4, unGasto.getNumDoc());
-            cs.setString(5, unGasto.getConcepto());
-            cs.setString(6, unGasto.getProveedor());
+            cs.setString(5, unGasto.getProveedor());
+            cs.setString(6, unGasto.getConcepto());            
             cs.setString(7, unGasto.getTipoMoneda());
             cs.setDouble(8, unGasto.getImporte());
             cs.setString(9, unGasto.getUsuario());
@@ -94,21 +94,22 @@ public class GastoDAL {
         return r;
     }
 
-    public Gasto buscarGasto(int codigo) {
+    public Gasto buscarGasto(String NroDocumento) {
         Gasto ogasto = null;
         try {
             CallableStatement cs = cn.prepareCall("{call sp_buscarGasto(?)}");
-            cs.setInt(1, codigo);
+            cs.setString(1, NroDocumento);
             ResultSet rs = cs.executeQuery();
             if (rs.next()) {
                 ogasto = new Gasto(
-                        rs.getString(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
+                        rs.getString(4),
                         rs.getString(5),
-                        rs.getString(4), 
-                        rs.getString(6),
-                        rs.getDouble(7));
+                        rs.getString(6), 
+                        rs.getString(7),
+                        rs.getDouble(8));
             } else {
                 ogasto = null;
             }
@@ -120,11 +121,11 @@ public class GastoDAL {
         return ogasto;
     }
 
-    public int eliminarGasto(int codigo) {
+    public int eliminarGasto(String NroDocumento) {
         int r;
         try {
             CallableStatement cs = cn.prepareCall("{call sp_eliminarGasto(?)}");
-            cs.setInt(1, codigo);
+            cs.setString(1, NroDocumento);
             int f = cs.executeUpdate();
             if (f > 0) {
                 r = 1;

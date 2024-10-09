@@ -16,8 +16,8 @@ public class Gasto {
     private String fechaGasto;
     private String tipoDoc;
     private String numDoc;
-    private String Concepto;
     private String proveedor;
+    private String Concepto;    
     private String tipoMoneda;
     private double importe;
     private Date fecha;
@@ -26,35 +26,46 @@ public class Gasto {
     public Gasto() {
     }
 
-    public Gasto(String fechaGasto, String tipoDoc, String numDoc, String Concepto, String proveedor, String tipoMoneda, double importe) {
+    public Gasto(int idGasto, String fechaGasto, String tipoDoc, String numDoc, String proveedor, String Concepto, String tipoMoneda, double importe) {
+        this.idGasto = idGasto;
         this.fechaGasto = fechaGasto;
         this.tipoDoc = tipoDoc;
         this.numDoc = numDoc;
-        this.Concepto = Concepto;
         this.proveedor = proveedor;
+        this.Concepto = Concepto;
         this.tipoMoneda = tipoMoneda;
         this.importe = importe;
-    }    
+    }
 
-    public Gasto(String fechaGasto, String tipoDoc, String numDoc, String Concepto, String proveedor, String tipoMoneda, double importe, Date fecha, String usuario) {
+    public Gasto(String fechaGasto, String tipoDoc, String numDoc, String proveedor, String Concepto, String tipoMoneda, double importe) {
         this.fechaGasto = fechaGasto;
         this.tipoDoc = tipoDoc;
         this.numDoc = numDoc;
-        this.Concepto = Concepto;
         this.proveedor = proveedor;
+        this.Concepto = Concepto;
+        this.tipoMoneda = tipoMoneda;
+        this.importe = importe;
+    }
+
+    public Gasto(String fechaGasto, String tipoDoc, String numDoc, String proveedor, String Concepto, String tipoMoneda, double importe, Date fecha, String usuario) {
+        this.fechaGasto = fechaGasto;
+        this.tipoDoc = tipoDoc;
+        this.numDoc = numDoc;
+        this.proveedor = proveedor;
+        this.Concepto = Concepto;
         this.tipoMoneda = tipoMoneda;
         this.importe = importe;
         this.fecha = fecha;
         this.usuario = usuario;
     }
 
-    public Gasto(int idGasto, String fechaGasto, String tipoDoc, String numDoc, String Concepto, String proveedor, String tipoMoneda, double importe, Date fecha, String usuario) {
+    public Gasto(int idGasto, String fechaGasto, String tipoDoc, String numDoc, String proveedor, String Concepto, String tipoMoneda, double importe, Date fecha, String usuario) {
         this.idGasto = idGasto;
         this.fechaGasto = fechaGasto;
         this.tipoDoc = tipoDoc;
         this.numDoc = numDoc;
-        this.Concepto = Concepto;
         this.proveedor = proveedor;
+        this.Concepto = Concepto;
         this.tipoMoneda = tipoMoneda;
         this.importe = importe;
         this.fecha = fecha;
@@ -95,20 +106,20 @@ public class Gasto {
         this.numDoc = numDoc;
     }
 
-    public String getConcepto() {
-        return Concepto;
-    }
-
-    public void setConcepto(String Concepto) {
-        this.Concepto = Concepto;
-    }
-
     public String getProveedor() {
         return proveedor;
     }
 
     public void setProveedor(String proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public String getConcepto() {
+        return Concepto;
+    }
+
+    public void setConcepto(String Concepto) {
+        this.Concepto = Concepto;
     }
 
     public String getTipoMoneda() {
@@ -142,6 +153,8 @@ public class Gasto {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-     
+
+    
+    
     
 }
